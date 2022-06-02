@@ -43,3 +43,7 @@
 
 * GraphQL
 
+
+## Server startup 
+Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
+	Option: --reload
