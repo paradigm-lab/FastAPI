@@ -1,5 +1,5 @@
-### FastAPI
-# A super fast python Web Framework
+# FastAPI:
+## A super fast python Web Framework
 
 ## Features:
 
@@ -59,3 +59,8 @@ localhost:8000/redoc
 ## Parameters
 	Path parameter
 	Query parameter
+
+## Request Body
+	Create the base Model
+	Use the blog model in the parameter 
+	Use the model to get the value
