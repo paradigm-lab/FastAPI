@@ -49,12 +49,10 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Option: --reload
 
 ## docs
-localhost:8000/docs
-	-> Testing the API
+	localhost:8000/docs "Testing the API"
 
 ## redoc
-localhost:8000/redoc
-	-> API documentation
+	localhost:8000/redoc "API documentation"
 
 ## Parameters
 	Path parameter
@@ -76,6 +74,11 @@ localhost:8000/redoc
 	Pydantic Schema: "SQLAlchemy"
 	ORM 
 	Model & Table
+
+## Exception & Status Code
+	200 - OK
+	201 - CREATED
+	HTTPException
 	
 
 	
