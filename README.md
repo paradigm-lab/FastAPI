@@ -70,6 +70,10 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 	pip3 install -r requirements.txt
 
+## To start the blog module server
+	uvicorn blog.main:app 
+	Option: --reload
+
 ## Database Connection
 	Pydantic Schema: "SQLAlchemy"
 	ORM 
