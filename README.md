@@ -64,3 +64,13 @@ localhost:8000/redoc
 	Create the base Model
 	Use the blog model in the parameter 
 	Use the model to get the value
+
+## Pydantic Schema
+	SQLAlchemy
+
+## Get the requirements.txt file
+	python3 -m venv blog-env
+
+	source blog-env/bin/activate
+
+	pip3 install -r requirements.txt
