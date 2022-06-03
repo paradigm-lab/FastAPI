@@ -61,7 +61,7 @@ localhost:8000/redoc
 	Query parameter
 
 ## Request Body
-	Create the base Model
+	Create the pydantic base Model
 	Use the blog model in the parameter 
 	Use the model to get the value
 
