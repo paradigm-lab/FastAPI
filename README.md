@@ -55,3 +55,7 @@ localhost:8000/docs
 ## redoc
 localhost:8000/redoc
 	-> API documentation
+
+## Parameters
+	Path parameter
+	Query parameter

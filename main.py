@@ -35,8 +35,9 @@ def show(id: int):
     return {"data": id}
 
 
+# Path Parameter
 @app.get("/blog/{id}/comments")
-def comments(id):
+def comments(id, limit=10):
     # Fetch comments of blog with id = id
-    return {"data": {"1", "2"}}
+    return {"data": limit}
 
