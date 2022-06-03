@@ -20,7 +20,7 @@ def get_db():
 
 # Store blog to Database
 @app.post("/blog")
-def create(request: schemas.Blog, db: Session = Depends(get_db)):
+def create_blog(request: schemas.Blog, db: Session = Depends(get_db)):
     new_blog = models.Blog(title=request.title, body=request.body)
     db.add(new_blog)
     db.commit()
@@ -29,8 +29,14 @@ def create(request: schemas.Blog, db: Session = Depends(get_db)):
 
 
 @app.get("/blog")
-def all(db: Session = Depends(get_db)):
+def show_all_blogs(db: Session = Depends(get_db)):
     blogs = db.query(models.Blog).all()
     return blogs
+
+
+@app.get("/blog/{id}")
+def show_blogs(id: int, db: Session = Depends(get_db)):
+    blog = db.query(models.Blog).filter(models.Blog.id == id).first()
+    return blog
 
 
