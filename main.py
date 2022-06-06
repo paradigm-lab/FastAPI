@@ -21,6 +21,13 @@ my_posts = [
             {"title": "Favorite foods", "content": "I like pizza", "id": 2}
         ]
 
+
+def find_post(id):
+    for p in my_posts:
+        if p["id"] == id:
+            return p
+
+
 # The Request order matters
 # Example: Request GET method URL: "/"
 
@@ -52,6 +59,14 @@ def create_posts(post: Post):    # Extracts all of the fields from the body and 
     post_dict["id"] = randrange(0, 1000000)
     my_posts.append(post_dict)
     return {"data": post_dict}
+
+
+# Path parameter(id)
+@app.get("/posts/{id}")
+def get_post(id: int):
+    post = find_post(id)
+    return {"Post_detail": post}
+
 
 
 
