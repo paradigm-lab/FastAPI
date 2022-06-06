@@ -3,10 +3,12 @@ from typing import Optional
 from fastapi import FastAPI
 from fastapi.params import Body
 from pydantic import BaseModel
+from random import randrange
 
 app = FastAPI()
 
 
+# Pydatic Model
 class Post(BaseModel):
     title: str
     content: str
@@ -46,9 +48,10 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 
 @app.post("/posts")
 def create_posts(post: Post):    # Extracts all of the fields from the body and convert to dictionary
-    print(post)
-    print(post.dict())
-    return {"data": post.dict()}
+    post_dict = post.dict()
+    post_dict["id"] = randrange(0, 1000000)
+    my_posts.append(post_dict)
+    return {"data": post_dict}
 
 
 
