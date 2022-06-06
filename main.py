@@ -6,6 +6,19 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+
+class Post(BaseModel):
+    title: str
+    content: str
+    published: bool = True
+    rating: Optional[int] = None
+
+
+my_posts = [
+            {"title": "Title of post 1", "content": "content of post 1", "id": 1},
+            {"title": "Favorite foods", "content": "I like pizza", "id": 2}
+        ]
+
 # The Request order matters
 # Example: Request GET method URL: "/"
 
@@ -31,19 +44,12 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 '''
 
 
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool = True
-    rating: Optional[int] = None
-
-
-@app.post("/createposts")
+@app.post("/posts")
 def create_posts(post: Post):    # Extracts all of the fields from the body and convert to dictionary
     print(post)
     print(post.dict())
     return {"data": post.dict()}
-# title str, content str
+
 
 
 
