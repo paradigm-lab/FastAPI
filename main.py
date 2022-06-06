@@ -33,7 +33,7 @@ def root():     # Function Will go to consist all the logic for performing the s
 @app.get("/posts")
 def get_posts():
 
-    return {"data": "This is your posts"}
+    return {"data": my_posts}   # FastAPI is going to serialize into JSON
 
 
 '''
