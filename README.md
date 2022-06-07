@@ -87,8 +87,55 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 
 ## Packages
-	__init__.py (Required for the package concept)
+	__init__.py (Required for the package concept) dunder __init__ file
 	uvicorn app.main:app --reload
+
+## Database
+	Database is a collection of organized data that can be easily accessed and managed.
+	We don't work or interact with database directly.
+	Instead we make use of a software referred to as a Database Management System (DBMS)
+	Popular DBMS:	Relational and NoSQL Databases
+	Relational Database are MySQL, PostgreSQL, Oracle, SQL Server
+	NoSQL Database are MongoDB, DynamoDB, Oracle, SQL server
+	Structured Query Language(SQL)- Language used to communicate with DBMS
+
+## Postgres 
+	Each instance of postgres can be carved into multiple separate databases.
+	By default every Postgres installation comes with one database already created called "postgres"
+	This is important because Postgres requires you to specify the name of a database to make connection. 
+	So there needs to always to one database.
+
+## Tables
+	A table represents a subject or event in an application. eg: Users, Products and Purchases
+
+## Columns Vs Rows
+	A table is made up of columns and rows
+	Each Column represents a different attribute eg: id, name, Age, Sex
+	Each row represents a different entry in the table eg: Unique user or Record
+
+## Postgres DataTypes
+	Databases have datatypes just like any programming language
+
+	Data Type: Numeric, Text, bool, sequence
+	Postgres: {Int, decimal, precision}, {Varchar, Text}, Boolean, array
+	Python: {Int, Float}, String, boolean, list
+
+## Primary Key 
+	Is a column or group of columns that uniquely identifies each row in table
+	Table can have one and only one primary key.
+	The primary key does not have to be the ID column always. It's up to you to decide which column uniquely defines each record.
+	Since an email can only be registered once, the email column can also be used as the primary key.
+	Note: Each Entry must be unique, No DUPLICATES!!!!!
+
+## Constraints
+	A Unique constraint can be applied to any column to make sure every record has a unique value for that column
+	
+	Null constraints by default when adding a new entry to a database, any column can be left blank. When a column is left blank, it has a null value
+	If you need column to be properly filled in to create a new record, a NOT NULL constraint can be added to the column to ensure that the column is never left blank
+
+	
+
+	
 	
 
 	
