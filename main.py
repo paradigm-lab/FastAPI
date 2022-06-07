@@ -28,6 +28,11 @@ def find_post(id):
         if p["id"] == id:
             return p
 
+def find_index_post(id):
+    for i, p in enumerate(my_posts):
+        if p["id"] == id:
+            return i
+
 
 # The Request order matters
 # Example: Request GET method URL: "/"
@@ -74,6 +79,17 @@ def get_post(id: int, response: Response):
     return {"Post_detail": post}
 
 
+@app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_post(id: int):
+    # Deleting post
+    # Find the index in the array that has required ID
+    # my_posts.pop(index)
+    index = find_index_post(id)
 
+    if index is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} does not exist")
+
+    my_posts.pop(index)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
