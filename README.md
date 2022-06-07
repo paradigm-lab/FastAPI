@@ -84,6 +84,11 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	200 - OK
 	201 - CREATED
 	HTTPException
+
+
+## Packages
+	__init__.py (Required for the package concept)
+	uvicorn app.main:app --reload
 	
 
 	
