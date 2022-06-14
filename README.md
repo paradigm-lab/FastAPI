@@ -134,6 +134,11 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	If you need column to be properly filled in to create a new record, a NOT NULL constraint can be added to the column to ensure that the column is never left blank
 
 	
+## psycopg2
+	Psycopg is a PostgreSQL database adapter for the Python programming language. It conforms to DB-API 2.0 standard.
+	It is designed for multi-threaded applications and manages its own connection pool.
+
+
 
 	
 	
