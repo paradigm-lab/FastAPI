@@ -97,12 +97,19 @@ def create_posts(post: Post):  # Extracts all of the fields from the body and co
 # Path parameter(id)
 @app.get("/posts/{id}")
 def get_post(id: int, response: Response):
+    """
     post = find_post(id)
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Post with id: {id} was not found")
         # response.status_code = status.HTTP_404_NOT_FOUND
         # return {"message": f"Post with id: {id} was not found"}
+    """
+    cursor.execute("""SELECT * FROM posts WHERE id = %s """, (str(id),))
+    post = cursor.fetchone()
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} was not found")
+
     return {"Post_detail": post}
 
 
