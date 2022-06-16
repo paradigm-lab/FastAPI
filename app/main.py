@@ -65,8 +65,7 @@ def root():  # Function Will go to consist all the logic for performing the spec
 def get_posts():
     cursor.execute("""SELECT * FROM posts """)
     posts = cursor.fetchall()
-    print(posts)
-    return {"data": my_posts}  # FastAPI is going to serialize into JSON
+    return {"data": posts}  # FastAPI is going to serialize into JSON
 
 
 '''
