@@ -6,6 +6,7 @@ from random import randrange
 import psycopg2
 from psycopg2.extras import \
     RealDictCursor  # Gives back the column name as well as the value (Return a python Dictionary)
+import time
 
 # Top Down path request
 app = FastAPI()
@@ -29,6 +30,7 @@ while True:
     except Exception as error:
         print("Connection to database failed")
         print("Error: ", error)
+        time.sleep(2)
 
 my_posts = [
     {"title": "Title of post 1", "content": "content of post 1", "id": 1},
@@ -61,6 +63,9 @@ def root():  # Function Will go to consist all the logic for performing the spec
 
 @app.get("/posts")
 def get_posts():
+    cursor.execute("""SELECT * FROM posts """)
+    posts = cursor.fetchall()
+    print(posts)
     return {"data": my_posts}  # FastAPI is going to serialize into JSON
 
 
