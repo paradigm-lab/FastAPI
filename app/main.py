@@ -3,6 +3,9 @@ from fastapi import FastAPI, Response, status, HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
+import psycopg2
+from psycopg2.extras import \
+    RealDictCursor  # Gives back the column name as well as the value (Return a python Dictionary)
 
 # Top Down path request
 app = FastAPI()
@@ -16,10 +19,21 @@ class Post(BaseModel):
     published: bool = True
 
 
+while True:
+    try:
+        conn = psycopg2.connect(host="127.0.0.1", database="post", user="fastapi", password="fastapi",
+                                cursor_factory=RealDictCursor)
+        cursor = conn.cursor()
+        print("Database Connection was successfully!")
+        break
+    except Exception as error:
+        print("Connection to database failed")
+        print("Error: ", error)
+
 my_posts = [
-            {"title": "Title of post 1", "content": "content of post 1", "id": 1},
-            {"title": "Favorite foods", "content": "I like pizza", "id": 2}
-        ]
+    {"title": "Title of post 1", "content": "content of post 1", "id": 1},
+    {"title": "Favorite foods", "content": "I like pizza", "id": 2}
+]
 
 
 def find_post(id):
@@ -39,16 +53,15 @@ def find_index_post(id):
 
 
 # Path Operation or Route
-@app.get("/")   # Decorator: We get the HTTP method and ("") path
-def root():     # Function Will go to consist all the logic for performing the specific task
+@app.get("/")  # Decorator: We get the HTTP method and ("") path
+def root():  # Function Will go to consist all the logic for performing the specific task
 
-    return {"message": "Welcome to my API"}   # FastAPI will automatically converter the dictionary to a JSON format
+    return {"message": "Welcome to my API"}  # FastAPI will automatically converter the dictionary to a JSON format
 
 
 @app.get("/posts")
 def get_posts():
-
-    return {"data": my_posts}   # FastAPI is going to serialize into JSON
+    return {"data": my_posts}  # FastAPI is going to serialize into JSON
 
 
 '''
@@ -60,7 +73,7 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post):    # Extracts all of the fields from the body and convert to dictionary
+def create_posts(post: Post):  # Extracts all of the fields from the body and convert to dictionary
     post_dict = post.dict()
     post_dict["id"] = randrange(0, 1000000)
     my_posts.append(post_dict)
@@ -105,6 +118,3 @@ def update_post(id: int, post: Post):
     my_posts[index] = post_dict
 
     return {"data": post_dict}
-
-
-
