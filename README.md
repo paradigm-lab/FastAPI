@@ -137,10 +137,23 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 ## psycopg2
 	Psycopg is a PostgreSQL database adapter for the Python programming language. It conforms to DB-API 2.0 standard.
 	It is designed for multi-threaded applications and manages its own connection pool.
+	Postgres Database driver
+
+## Note:
+	Using Raw SQL to send queries to the database.
 
 
+## Object Relational Mapper(ORM)
+	Layer of abstraction that sits between the database and us
+	We can perform all database operations through traditional python code. No more SQL!
+	Abstracts the SQL complexity
 
-	
-	
+## What can ORMs Do
+	Instead of manually defining tables in postgres, we can define our tables as python models
+	Queries can be made exclusively through python code. No SQL is necessary
 
-	
+## SQLALCHEMY 
+	Sqlalchemy is one of the most popular python ORMs.
+	It is a standalone library and has no association with FastAPI. It can be used with any other python web frameworks or any python based application.
+	No any relationship with FastAPI and Not part of FastAPI.
+
