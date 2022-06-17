@@ -9,21 +9,12 @@ from psycopg2.extras import \
 import time
 from sqlalchemy.orm import Session
 from . import models
-from .database import engine, SessionLocal
+from .database import engine, get_db
 
 models.Base.metadata.create_all(bind=engine)
 
 # Top Down path request
 app = FastAPI()
-
-
-# Dependency to get a session to the database to send SQL statement
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 # Pydatic Model
