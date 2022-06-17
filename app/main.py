@@ -8,12 +8,21 @@ from psycopg2.extras import \
     RealDictCursor  # Gives back the column name as well as the value (Return a python Dictionary)
 import time
 from . import models
-from .database import engine
+from .database import engine, SessionLocal
 
 models.Base.metadata.create_all(bind=engine)
 
 # Top Down path request
 app = FastAPI()
+
+
+# Dependency to get a session to the database to send SQL statement
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 # Pydatic Model
