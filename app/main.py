@@ -7,6 +7,10 @@ import psycopg2
 from psycopg2.extras import \
     RealDictCursor  # Gives back the column name as well as the value (Return a python Dictionary)
 import time
+from . import models
+from .database import engine
+
+models.Base.metadata.create_all(bind=engine)
 
 # Top Down path request
 app = FastAPI()
