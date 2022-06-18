@@ -67,9 +67,11 @@ def root():  # Function Will go to consist all the logic for performing the spec
 
 
 @app.get("/posts")
-def get_posts():
-    cursor.execute(""" SELECT * FROM posts """)
-    posts = cursor.fetchall()
+def get_posts(db: Session = Depends(get_db)):
+    # cursor.execute(""" SELECT * FROM posts """)
+    # posts = cursor.fetchall()
+    posts = db.query(models.Post).all()
+
     return {"data": posts}  # FastAPI is going to serialize into JSON
 
 
