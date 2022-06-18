@@ -99,7 +99,11 @@ def create_posts(post: Post, db: Session = Depends(get_db)):  # Extracts all of 
     # Committing to the database to actually commit the changes (By using the database connection Instance)
     # conn.commit()
 
-    new_post = models.Post(title=post.title, content=post.content, published=post.published)
+    # print(**post.dict())
+    new_post = models.Post(**post.dict())   # Unpacking the model to a regular python dictionary
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)    # Returning back the post to new_post
 
     return {"data": new_post}
 
