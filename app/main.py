@@ -84,19 +84,22 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post):  # Extracts all of the fields from the body and convert to dictionary
+def create_posts(post: Post, db: Session = Depends(get_db)):  # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
     post_dict["id"] = randrange(0, 1000000)
     my_posts.append(post_dict)
     """
-    # This helps to be vulnerable from SQL injection
-    cursor.execute("""INSERT INTO posts(title, content, published) VALUES(%s, %s, %s) RETURNING *""", (post.title, post.content, post.published))
 
-    new_post = cursor.fetchone()
+    # This helps to be vulnerable from SQL injection cursor.execute("""INSERT INTO posts(title, content, published)
+    # VALUES(%s, %s, %s) RETURNING *""", (post.title, post.content, post.published))
+
+    # new_post = cursor.fetchone()
 
     # Committing to the database to actually commit the changes (By using the database connection Instance)
-    conn.commit()
+    # conn.commit()
+
+    new_post = models.Post(title=post.title, content=post.content, published=post.published)
 
     return {"data": new_post}
 
