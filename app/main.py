@@ -8,21 +8,13 @@ from psycopg2.extras import \
     RealDictCursor  # Gives back the column name as well as the value (Return a python Dictionary)
 import time
 from sqlalchemy.orm import Session
-from . import models
+from . import models, schemas
 from .database import engine, get_db
 
 models.Base.metadata.create_all(bind=engine)
 
 # Top Down path request
 app = FastAPI()
-
-
-# Pydatic Model
-# Schema
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool = True
 
 
 while True:
@@ -84,7 +76,7 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post,
+def create_posts(post: schemas.Post,
                  db: Session = Depends(get_db)):  # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
@@ -172,7 +164,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/posts/{id}")
-def update_post(id: int, updated_post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schemas.Post, db: Session = Depends(get_db)):
 
     """
     index = find_index_post(id)
