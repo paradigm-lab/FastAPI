@@ -165,3 +165,6 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	A migration is the set of steps needed whenever you change the structure of your SQLAlchemy
 	models, add a new attribute, etc to replicate those changes in the database, add a new column,
 	a new table, etc.
+
+## Quiz:
+	What is the difference between Schema and Model?
