@@ -1,11 +1,14 @@
 from pydantic import BaseModel
 
 
-# Pydatic Model
+# Extending Pydatic Model
 # Schema
-class Post(BaseModel):
+class PostBase(BaseModel):
     title: str
     content: str
     published: bool = True
 
 
+# Using Inheritance approach
+class PostCreate(PostBase):
+    pass
