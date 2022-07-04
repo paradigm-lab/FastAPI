@@ -156,4 +156,12 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Sqlalchemy is one of the most popular python ORMs.
 	It is a standalone library and has no association with FastAPI. It can be used with any other python web frameworks or any python based application.
 	No any relationship with FastAPI and Not part of FastAPI.
+	Note:
+		It only generates the table but not modifying the table 
+		No migration while using SQLALCHEMY
 
+## Alembic
+	* Handle the database migration
+	A migration is the set of steps needed whenever you change the structure of your SQLAlchemy
+	models, add a new attribute, etc to replicate those changes in the database, add a new column,
+	a new table, etc.
