@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from fastapi import FastAPI, Response, status, HTTPException, Depends
 from fastapi.params import Body
 from pydantic import BaseModel
@@ -58,13 +58,13 @@ def root():  # Function Will go to consist all the logic for performing the spec
     return {"message": "Welcome to my API"}  # FastAPI will automatically converter the dictionary to a JSON format
 
 
-@app.get("/posts")
+@app.get("/posts", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
 def get_posts(db: Session = Depends(get_db)):
     # cursor.execute(""" SELECT * FROM posts """)
     # posts = cursor.fetchall()
     posts = db.query(models.Post).all()
 
-    return {"data": posts}  # FastAPI is going to serialize into JSON
+    return posts  # FastAPI is going to serialize into JSON
 
 
 '''
@@ -75,7 +75,7 @@ def create_posts(payload: dict = Body(...)):    # Extracts all of the fields fro
 '''
 
 
-@app.post("/posts", status_code=status.HTTP_201_CREATED)
+@app.post("/posts", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate,
                  db: Session = Depends(get_db)):  # Extracts all of the fields from the body and convert to dictionary
     """
@@ -98,11 +98,11 @@ def create_posts(post: schemas.PostCreate,
     db.commit()
     db.refresh(new_post)  # Returning back the post to new_post
 
-    return {"data": new_post}
+    return new_post
 
 
 # Path parameter(id)
-@app.get("/posts/{id}")
+@app.get("/posts/{id}", response_model=schemas.Post)
 def get_post(id: int, db: Session = Depends(get_db)):
     """
     post = find_post(id)
@@ -122,7 +122,7 @@ def get_post(id: int, db: Session = Depends(get_db)):
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} was not found")
 
-    return {"Post_detail": post}
+    return post
 
 
 @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -163,7 +163,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@app.put("/posts/{id}")
+@app.put("/posts/{id}", response_model=schemas.Post)
 def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends(get_db)):
 
     """
@@ -199,6 +199,6 @@ def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends
         post_query.update(updated_post.dict(), synchronize_session=False)
         db.commit()
 
-    return {"data": post_query.first()}
+    return post_query.first()
 
 
