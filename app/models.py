@@ -4,6 +4,7 @@ from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 
+# SQLAlchemy model - This defines our database and Table how it lock's like
 class Post(Base):
     __tablename__ = "posts"
 

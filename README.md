@@ -167,5 +167,17 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	a new table, etc.
 
 ## Quiz:
-	What is the difference between Schema and Model?
-	Why do we pass a f(x) inside a f(x) without the paranthesis 
+	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
+	2. Why do we pass a f(x) inside a f(x) without the paranthesis 
+
+
+
+## Answers:
+	1. 
+		* Schema/Pydantic Models define the structure of a request & response.
+			* By using the Schema / Pydantic Model for the validation.
+		* This ensure that when a user wants to create a post, the request will only go through if it
+           has a "title" and "content" in the body.
+
+		* SQLAlchemy models(ORM Model) is a responsible for defining the columns of our "posts" table within postgres or any DB
+		* Is used to query, create, delete and update entries within the database.
