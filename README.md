@@ -168,3 +168,4 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 ## Quiz:
 	What is the difference between Schema and Model?
+	Why do we pass a f(x) inside a f(x) without the paranthesis 
