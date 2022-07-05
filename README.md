@@ -171,6 +171,26 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	2. Why do we pass a f(x) inside a f(x) without the paranthesis 
 
 
+## JWT Token Authentication (Stateless)
+	There is nothing in our backend/API/Database that keeps tracks whether the user is logged in or out.   	
+	The Token is stored on the frontend or client that keeps track whether the user is logged in or out.
+	
+				       /login(username + password)
+		Client				----------> 						API (If credentials are valid sign JWT Token)
+		
+                              {Token}	
+		Client				<---------- 						API 
+
+							  /posts {token}
+		Client				----------> 						API (Verify token is valid)
+
+								Data	
+		Client				----------> 						API 
+	
+
+## Session Based Authentication
+
+
 
 ## Answers:
 	1. 
