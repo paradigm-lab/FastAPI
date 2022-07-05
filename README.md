@@ -188,6 +188,9 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 		Client				----------> 						API 
 
 ## JWT Component 
+	xxxxx.yyyyy.zzzzz
+		Not Encrypted
+
 	In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:
 		Header (Algorithm & Token Type)
 			{
@@ -202,15 +205,15 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 				"admin": true
 			}	
 
-		Signature
+		Signature (Header, Payload, Secret(API Server))
 			HMACSHA256(
 			  base64UrlEncode(header) + "." +
 			  base64UrlEncode(payload),
 			  secret)
 
-
-	xxxxx.yyyyy.zzzzz
-		Not Encrypted
+	Purpose of Signature:
+		The header and payload(Role) can be changed but to make up a Signature it needs a secret.
+		Secret is only idetified by the API.
 	
 
 ## Session Based Authentication
