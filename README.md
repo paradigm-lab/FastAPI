@@ -186,6 +186,31 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 								Data	
 		Client				----------> 						API 
+
+## JWT Component 
+	In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:
+		Header (Algorithm & Token Type)
+			{
+				"alg": "HS256",
+				"typ": "JWT"
+			}
+
+		Payload (Data)
+			{
+				"sub": "1234567890",
+				"name": "John Doe",
+				"admin": true
+			}	
+
+		Signature
+			HMACSHA256(
+			  base64UrlEncode(header) + "." +
+			  base64UrlEncode(payload),
+			  secret)
+
+
+	xxxxx.yyyyy.zzzzz
+		Not Encrypted
 	
 
 ## Session Based Authentication
