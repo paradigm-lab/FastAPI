@@ -214,10 +214,22 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Purpose of Signature:
 		The header and payload(Role) can be changed but to make up a Signature it needs a secret.
 		Secret is only idetified by the API.
-	
+
 
 ## Session Based Authentication
+	
 
+## Logging in User
+				/login {email, password}              Find user by email ->  Database
+		                                               User{password(hashed)}
+	Client			   --> 						API        ----->             Database
+					  {Token}								
+	Client			   <-- 						API        ----->             Database
+														Password
+															|
+															| Hash F(x)
+															|
+														Hashed password = Hased Password
 
 
 ## Answers:
