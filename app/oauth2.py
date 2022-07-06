@@ -21,7 +21,7 @@ def create_access_token(data: dict):
     to_encode = data.copy()
 
     # Giving out the Expiration Time
-    expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
 
     # Passing the SECRET_KEY, Algorithm and Data
