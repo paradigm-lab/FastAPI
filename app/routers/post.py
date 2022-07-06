@@ -11,12 +11,12 @@ router = APIRouter(
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
-def get_posts(db: Session = Depends(get_db), user_id: id = Depends(oauth2.get_current_user)):
+def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.get_current_user)):
     # cursor.execute(""" SELECT * FROM posts """)
     # posts = cursor.fetchall()
 
     # Logging out the user id
-    print(user_id)
+    print(current_user.email)
 
     posts = db.query(models.Post).all()
 
@@ -25,7 +25,7 @@ def get_posts(db: Session = Depends(get_db), user_id: id = Depends(oauth2.get_cu
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate,
-                db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+                db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
@@ -42,7 +42,7 @@ def create_posts(post: schemas.PostCreate,
     # conn.commit()
 
     # print(**post.dict())
-    print(user_id)
+    print(current_user.email)
     new_post = models.Post(**post.dict())  # Unpacking the model to a regular python dictionary
     db.add(new_post)
     db.commit()
@@ -53,7 +53,7 @@ def create_posts(post: schemas.PostCreate,
 
 # Path parameter(id)
 @router.get("/{id}", response_model=schemas.Post)
-def get_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     """
     post = find_post(id)
     if not post:
@@ -66,9 +66,6 @@ def get_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oaut
     # cursor.execute("""SELECT * FROM posts WHERE id = %s """, (str(id),))
     # post = cursor.fetchone()
 
-    # Logging out the user id
-    print(user_id)
-
     # We don't use the all() method because it's going to keep searching for all the data instead we use first() method.
     post = db.query(models.Post).filter(models.Post.id == id).first()   # More efficient
 
@@ -79,7 +76,7 @@ def get_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oaut
 
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # Deleting post
     # Find the index in the array that has required ID
     # my_posts.pop(index)
@@ -104,9 +101,6 @@ def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(o
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} does not exist")
     '''
 
-    # Logging out the user id
-    print(user_id)
-
     # Using ORM
     post = db.query(models.Post).filter(models.Post.id == id)
 
@@ -121,7 +115,7 @@ def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(o
 
 @router.put("/{id}", response_model=schemas.Post)
 def update_post(id: int, updated_post: schemas.PostCreate,
-                db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+                db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
     """
     index = find_index_post(id)
@@ -145,9 +139,6 @@ def update_post(id: int, updated_post: schemas.PostCreate,
     if updated_post is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} does not exist")
     '''
-
-    # Logging out user id
-    print(user_id)
 
     # ORM Approach
     post_query = db.query(models.Post).filter(models.Post.id == id)
