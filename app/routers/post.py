@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas
+from .. import models, schemas, oauth2
 from ..database import get_db
 
 router = APIRouter(
@@ -21,7 +21,8 @@ def get_posts(db: Session = Depends(get_db)):
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate,
-                 db: Session = Depends(get_db)):  # Extracts all of the fields from the body and convert to dictionary
+                db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+    # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
     post_dict["id"] = randrange(0, 1000000)
@@ -37,6 +38,7 @@ def create_posts(post: schemas.PostCreate,
     # conn.commit()
 
     # print(**post.dict())
+    print(user_id)
     new_post = models.Post(**post.dict())  # Unpacking the model to a regular python dictionary
     db.add(new_post)
     db.commit()
