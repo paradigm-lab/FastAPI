@@ -25,7 +25,7 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
 
     # Passing the SECRET_KEY, Algorithm and Data
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=[ALGORITHM])    # JWT Token Creation (payload)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)    # JWT Token Creation (payload)
 
     return encoded_jwt
 
@@ -33,6 +33,7 @@ def create_access_token(data: dict):
 def verify_access_token(token: str, credentials_exception):
 
     try:
+        print(token)
         # Extracting the data
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         id: str = payload.get("user_id")
@@ -40,10 +41,13 @@ def verify_access_token(token: str, credentials_exception):
         if id is None:
             raise credentials_exception
         token_data = schemas.TokenData(id = id)
-    except JWTError:
+    except JWTError as e:
+        print(e)
         raise credentials_exception
+    except AssertionError as e:
+        print(e)
 
-    return token_data
+    return token_data   # id
 
 
 def get_current_user(token: str = Depends(outh2_scheme)):
