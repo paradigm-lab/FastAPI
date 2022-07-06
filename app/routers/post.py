@@ -11,9 +11,13 @@ router = APIRouter(
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
-def get_posts(db: Session = Depends(get_db)):
+def get_posts(db: Session = Depends(get_db), user_id: id = Depends(oauth2.get_current_user)):
     # cursor.execute(""" SELECT * FROM posts """)
     # posts = cursor.fetchall()
+
+    # Logging out the user id
+    print(user_id)
+
     posts = db.query(models.Post).all()
 
     return posts  # FastAPI is going to serialize into JSON
@@ -49,7 +53,7 @@ def create_posts(post: schemas.PostCreate,
 
 # Path parameter(id)
 @router.get("/{id}", response_model=schemas.Post)
-def get_post(id: int, db: Session = Depends(get_db)):
+def get_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     """
     post = find_post(id)
     if not post:
@@ -62,6 +66,9 @@ def get_post(id: int, db: Session = Depends(get_db)):
     # cursor.execute("""SELECT * FROM posts WHERE id = %s """, (str(id),))
     # post = cursor.fetchone()
 
+    # Logging out the user id
+    print(user_id)
+
     # We don't use the all() method because it's going to keep searching for all the data instead we use first() method.
     post = db.query(models.Post).filter(models.Post.id == id).first()   # More efficient
 
@@ -72,7 +79,7 @@ def get_post(id: int, db: Session = Depends(get_db)):
 
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_post(id: int, db: Session = Depends(get_db)):
+def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     # Deleting post
     # Find the index in the array that has required ID
     # my_posts.pop(index)
@@ -97,6 +104,9 @@ def delete_post(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} does not exist")
     '''
 
+    # Logging out the user id
+    print(user_id)
+
     # Using ORM
     post = db.query(models.Post).filter(models.Post.id == id)
 
@@ -110,7 +120,8 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/{id}", response_model=schemas.Post)
-def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schemas.PostCreate,
+                db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
 
     """
     index = find_index_post(id)
@@ -134,6 +145,9 @@ def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends
     if updated_post is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} does not exist")
     '''
+
+    # Logging out user id
+    print(user_id)
 
     # ORM Approach
     post_query = db.query(models.Post).filter(models.Post.id == id)
