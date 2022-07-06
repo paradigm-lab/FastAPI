@@ -25,7 +25,7 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
 
     # Passing the SECRET_KEY, Algorithm and Data
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)    # JWT Token Creation (payload)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=[ALGORITHM])    # JWT Token Creation (payload)
 
     return encoded_jwt
 
