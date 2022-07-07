@@ -11,19 +11,20 @@ router = APIRouter(
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
-def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.get_current_user)):
+def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.get_current_user),
+              limit: int = 10):
     # cursor.execute(""" SELECT * FROM posts """)
     # posts = cursor.fetchall()
 
     # Logging out the user id
-    print(current_user.email)
+    print(limit)
 
     """
     Retrieving the post for individual user
     posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all() 
     """
 
-    posts = db.query(models.Post).all()
+    posts = db.query(models.Post).limit(limit).all()
 
     return posts  # FastAPI is going to serialize into JSON
 
