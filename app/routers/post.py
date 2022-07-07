@@ -18,7 +18,12 @@ def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.g
     # Logging out the user id
     print(current_user.email)
 
-    posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all()
+    """
+    Retrieving the post for individual user
+    posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all() 
+    """
+
+    posts = db.query(models.Post).all()
 
     return posts  # FastAPI is going to serialize into JSON
 
@@ -73,8 +78,11 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: id = Depends(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Post with id: {id} was not found")
 
+    """
+    Retrieve the individual post by authorization
     if post.owner_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Not authorized to perform request action")
+    """
 
     return post
 
