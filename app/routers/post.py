@@ -18,14 +18,14 @@ def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.g
     # Logging out the user id
     print(current_user.email)
 
-    posts = db.query(models.Post).all()
+    posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all()
 
     return posts  # FastAPI is going to serialize into JSON
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate,
-                 db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+                 db: Session = Depends(get_db), current_user: id = Depends(oauth2.get_current_user)):
     # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
