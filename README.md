@@ -232,6 +232,11 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 														Hashed password = Hased Password
 
 
+## Query parameter
+	A query parameter is an optional key value pair.
+	All as to filter the results of a request.
+
+
 ## Answers:
 	1. 
 		* Schema/Pydantic Models define the structure of a request & response.
