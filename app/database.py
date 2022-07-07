@@ -24,6 +24,7 @@ def get_db():
         db.close()
 
 
+"""
 # Postgres database driver for sending raw sql queries
 while True:
     try:
@@ -36,4 +37,5 @@ while True:
         print("Connection to database failed")
         print("Error: ", error)
         time.sleep(2)
+"""
 
