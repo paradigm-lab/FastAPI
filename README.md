@@ -236,7 +236,18 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	A query parameter is an optional key value pair.
 	All as to filter the results of a request.
 
+	Pagination, also known as paging, is a process that is used to divide a large data
+	into smaller discrete pages. 
+	
+	Symbols: ?, &, %20 (Space)
 
+	* Limit(LIMIT)
+	* Skip(OFFSET)
+	* Search(CONTAINS)
+	* Sort
+	* Page
+
+	
 ## Answers:
 	1. 
 		* Schema/Pydantic Models define the structure of a request & response.
