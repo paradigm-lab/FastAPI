@@ -247,7 +247,15 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	* Sort
 	* Page
 
+
+## Environment Variables
+	Is a Variable whose value is outside the program, 
+	typically through functionallity built into operating sytem or microservice.
+	An environment variable is made up of a name/value pair, and any number may
+	be created and available for reference at a point in time.
+
 	
+
 ## Answers:
 	1. 
 		* Schema/Pydantic Models define the structure of a request & response.
