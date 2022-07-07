@@ -25,7 +25,7 @@ def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.g
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate,
-                db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+                 db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # Extracts all of the fields from the body and convert to dictionary
     """
     post_dict = post.dict()
@@ -42,8 +42,8 @@ def create_posts(post: schemas.PostCreate,
     # conn.commit()
 
     # print(**post.dict())
-    print(current_user.email)
-    new_post = models.Post(**post.dict())  # Unpacking the model to a regular python dictionary
+    new_post = models.Post(owner_id=current_user.id,
+                           **post.dict())  # Unpacking the model to a regular python dictionary
     db.add(new_post)
     db.commit()
     db.refresh(new_post)  # Returning back the post to new_post
@@ -67,7 +67,7 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
     # post = cursor.fetchone()
 
     # We don't use the all() method because it's going to keep searching for all the data instead we use first() method.
-    post = db.query(models.Post).filter(models.Post.id == id).first()   # More efficient
+    post = db.query(models.Post).filter(models.Post.id == id).first()  # More efficient
 
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id: {id} was not found")
@@ -116,7 +116,6 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
 @router.put("/{id}", response_model=schemas.Post)
 def update_post(id: int, updated_post: schemas.PostCreate,
                 db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
-
     """
     index = find_index_post(id)
 
