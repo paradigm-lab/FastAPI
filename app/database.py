@@ -2,10 +2,16 @@ import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from .config import settings
 from psycopg2.extras import RealDictCursor # Gives back the column name as well as the value (Return a python Dictionary)
 import time
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://fastapi:fastapi@127.0.0.1:5432/post'
+SQLALCHEMY_DATABASE_URL = f'postgresql://' \
+                          f'{settings.database_username}:' \
+                          f'{settings.database_password}@' \
+                          f'{settings.database_hostname}:' \
+                          f'{settings.database_port}/' \
+                          f'{settings.database_name}'
 
 # The engine is responsible for establishing a connection
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
