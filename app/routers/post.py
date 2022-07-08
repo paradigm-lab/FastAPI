@@ -17,7 +17,6 @@ def get_posts(db: Session = Depends(get_db), current_user: id = Depends(oauth2.g
     # posts = cursor.fetchall()
 
     # Logging out the user id
-    print(limit)
 
     """
     Retrieving the post for individual user
