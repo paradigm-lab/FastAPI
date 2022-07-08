@@ -5,7 +5,7 @@ from .routers import post, user, auth
 from .config import settings
 
 
-print(settings.shell)
+print(settings.database_hostname)
 
 models.Base.metadata.create_all(bind=engine)
 
