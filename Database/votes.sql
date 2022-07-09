@@ -1,4 +1,5 @@
 -- Composite Keys
+-- Since it's a primary key we don't neet to Specify NOT NULL
 CREATE TABLE votes (
 	post_id INTEGER,
 	user_id INTEGER,
