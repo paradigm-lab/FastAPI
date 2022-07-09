@@ -21,4 +21,21 @@ GROUP BY users.id;
 
 
 
+-- Explanations:
+	-- The first table refferenced is the LEFT table and the second table referenced is the RIGHT tables
 
+
+-- Posts over votes(LEFT)
+SELECT * FROM posts LEFT JOIN votes ON posts.id = votes.post_id;
+
+-- Posts over votes(RIGHT)
+SELECT * FROM posts RIGHT JOIN votes ON posts.id = votes.post_id; 
+
+-- Count the number of votes
+SELECT posts.*, COUNT(votes.post_id) AS LIKES FROM posts LEFT JOIN votes ON posts.id = votes.post_id 
+GROUP BY posts.id; 
+
+-- Count the number of votes
+SELECT posts.*, COUNT(votes.post_id) AS LIKES FROM posts LEFT JOIN votes ON posts.id = votes.post_id 
+WHERE posts.id = 7
+GROUP BY posts.id; 
