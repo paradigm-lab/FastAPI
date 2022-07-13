@@ -160,6 +160,12 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 		It only generates the table but not modifying the table 
 		No migration while using SQLALCHEMY
 
+##  Database Migrations
+- Developers can track changes to code and rollback code easily with GIT. Why can't we do the same for database models/tables
+- Database migration allow us to incrementally track changes to database schema and rollback changes to any point in time
+- We will use a tool called Alembic to make changes to our database
+- Alembic can also automatically pull database models from Sqlalchemy and generate the proper tables
+
 ## Alembic
 	* Handle the database migration
 	A migration is the set of steps needed whenever you change the structure of your SQLAlchemy
