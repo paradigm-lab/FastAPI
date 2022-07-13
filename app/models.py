@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from .database import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
+from .database import Base  # We import the base to alembic to be able to give it access to our models
 
 
 # SQLAlchemy model - This defines our database and Table how it lock's like
