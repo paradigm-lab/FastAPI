@@ -162,15 +162,18 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 ##  Database Migrations
 - Developers can track changes to code and rollback code easily with GIT. Why can't we do the same for database models/tables
+- A migration is the set of steps needed whenever you change the structure of your SQLAlchemy
+  models, add a new attribute, etc to replicate those changes in the database, add a new column,
+  a new table, etc.
 - Database migration allow us to incrementally track changes to database schema and rollback changes to any point in time
 - We will use a tool called Alembic to make changes to our database
 - Alembic can also automatically pull database models from Sqlalchemy and generate the proper tables
 
-## Alembic
-	* Handle the database migration
-	A migration is the set of steps needed whenever you change the structure of your SQLAlchemy
-	models, add a new attribute, etc to replicate those changes in the database, add a new column,
-	a new table, etc.
+## Alembic (Handle the database migration)
+	pip install alembic
+	alembic init {directory} (Initializing Alembic into your project)
+	Beginner: We are going to deal with the alembic/env.py file and ./alembic.ini file in the root project file structure.
+	We a going to provide the Base for alembic to access our models and sqlalchemy.url to access the database.
 
 ## Quiz:
 	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
