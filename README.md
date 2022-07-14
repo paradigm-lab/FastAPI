@@ -193,6 +193,8 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 			   Blocked
 	ebay.com 	   -----> 		google.com
 
+	Note: Middleware is a function that runs before every request.
+
 
 ## Quiz:
 	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
