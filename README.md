@@ -171,9 +171,17 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 
 ## Alembic (Handle the database migration)
 	pip install alembic
-	alembic init {directory} (Initializing Alembic into your project)
+	Command: "alembic init {directory}" (Initializing Alembic into your project)
 	Beginner: We are going to deal with the alembic/env.py file and ./alembic.ini file in the root project file structure.
 	We a going to provide the Base for alembic to access our models and sqlalchemy.url to access the database.
+
+	Commands:
+	alembic --help
+	alembic revision (Tracks all the changes we make in step by step changes.)
+		-> upgrade f(x) - Making changes
+		-> downgrade f(x) - Roll back
+
+	alembic upgrade {revision identifier}
 
 ## Quiz:
 	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
