@@ -182,6 +182,7 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 		-> downgrade f(x) - Roll back
 
 	alembic upgrade {revision identifier}
+	alembic revision --autogenerate -m {"Message to give the description"} -> "The autogenerate future in alembic does the comparison between database to models"
 
 ## Quiz:
 	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
