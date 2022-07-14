@@ -44,6 +44,10 @@
 * GraphQL
 
 
+## To get started:
+	using pip to install the dependencies for this project
+	pip install -r requirements.txt
+
 ## Server startup 
 Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Option: --reload
