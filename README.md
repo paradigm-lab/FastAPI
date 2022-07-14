@@ -184,6 +184,16 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	alembic upgrade {revision identifier}
 	alembic revision --autogenerate -m {"Message to give the description"} -> "The autogenerate future in alembic does the comparison between database to models"
 
+## CORS
+	Run this on the browser console:
+	fetch('http://localhost:8000/').then(res => res.json()).then(console.log)
+	Cross Origin Resource Sharing(CORS) allows you to make requests from a web browser on one domain to a server on a different domain.
+	By default our API will only allow web browser running on the same domain as our server to make requests to it
+					
+			   Blocked
+	ebay.com 	   -----> 		google.com
+
+
 ## Quiz:
 	1. What is the difference between Schema/Pydantic Model and SQLAlchemy Models?
 	2. Why do we pass a f(x) inside a f(x) without the paranthesis 
