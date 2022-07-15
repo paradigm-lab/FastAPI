@@ -288,6 +288,11 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	An environment variable is made up of a name/value pair, and any number may
 	be created and available for reference at a point in time.
 
+
+## gunicorn
+	Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork worker model. 
+	The Gunicorn server is broadly compatible with various web frameworks, simply implemented, light on server resources, and fairly speedy.
+	It's responsible for restarting our application
 	
 
 ## Answers:
