@@ -293,6 +293,13 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork worker model. 
 	The Gunicorn server is broadly compatible with various web frameworks, simply implemented, light on server resources, and fairly speedy.
 	It's responsible for restarting our application
+
+
+## NGINX
+	High performance webserver that can act as a proxy
+	Can handle SSL termination
+
+	HTTPS Reuquest  -->  NGINX  --->  HTTP 	-->    GUNICORN(Workers)
 	
 
 ## Answers:
