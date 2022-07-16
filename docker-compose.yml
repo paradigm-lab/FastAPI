@@ -9,6 +9,7 @@ services:
       - "8000:8000"
     volumes:                # Sync the changes from my container (Bind mount)
       - ./:/usr/src/app:ro  # ro is for ReadOnly This is for the security purpose we don't want the container to change anything
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     # env_file:
     #  - ./.env
     environment:
