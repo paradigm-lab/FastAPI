@@ -1,9 +1,9 @@
 version: "3"
 services:
-  api:
-    build: .
+  api:                      # Container Name
+    build: .                # image {}, build {docker file}
     ports:
-      # <port on localhost>:<port on container>
+      # <port on localhost>:<port on container>, We pass an array [] or -
       - "8000:8000"
     # env_file:
     #  - ./.env
@@ -16,3 +16,7 @@ services:
       - SECRET_KEY="6b02679b2bda59ee77826b19dfbeda795fa77715f27053834d25e73cbb154673"
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+
+
+# The image name is generated from the project name and service name with the number 1 because we have one instance
