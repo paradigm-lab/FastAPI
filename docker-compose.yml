@@ -1,21 +1,34 @@
 version: "3"
 services:
   api:                      # Container Name
-    build: .                # image {}, build {docker file}
+    build: .                # image {}, build {docker file}, We use build because we are building a customer image
     ports:
       # <port on localhost>:<port on container>, We pass an array [] or -
       - "8000:8000"
     # env_file:
     #  - ./.env
     environment:
-      - DATABASE_HOSTNAME=127.0.0.1
+      - DATABASE_HOSTNAME=postgres  # Docker is going to use DNS to resolve the host name of our database
       - DATABASE_PORT=5432
       - DATABASE_PASSWORD=fastapi
-      - DATABASE_NAME=post
+      - DATABASE_NAME=fastapi
       - DATABASE_USERNAME=fastapi
       - SECRET_KEY="6b02679b2bda59ee77826b19dfbeda795fa77715f27053834d25e73cbb154673"
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=30
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=fastapi
+      - POSTGRES_DB=fastapi
+    volumes:
+      # Performing a named volume
+      - postgres-db:/var/lib/postgresql/data    # This is the path in our container that postgres is going store the data
+
+# Assigning named volume globally because it's going to be used by other containers to be accessed
+volumes:
+  postgres-db:
+
 
 
 
