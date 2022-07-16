@@ -1,0 +1,18 @@
+version: "3"
+services:
+  api:
+    build: .
+    ports:
+      # <port on localhost>:<port on container>
+      - "8000:8000"
+    # env_file:
+    #  - ./.env
+    environment:
+      - DATABASE_HOSTNAME=127.0.0.1
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=fastapi
+      - DATABASE_NAME=post
+      - DATABASE_USERNAME=fastapi
+      - SECRET_KEY="6b02679b2bda59ee77826b19dfbeda795fa77715f27053834d25e73cbb154673"
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
