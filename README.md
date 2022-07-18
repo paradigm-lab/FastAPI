@@ -307,6 +307,11 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Create functions with a name starts with test...(This is standard pytest conventions)
 	Use the TestClient object the same way as you do with Requests library.
 	Everything you can do with Requests can be done with TestClient.
+	Pytest flags:
+		-x Stops after the first FAILURE of the test
+		--disable-warningsa Disable all the warnings
+		-v verbose
+		-s Output's the print statements
 	
 
 ## Answers:
