@@ -1,7 +1,7 @@
 version: "3"
 services:
   api:                      # Container Name
-    build: .                # image {}, build {docker file}, We use build because we are building a customer image
+    image: paradigmlab/fastapi   # image {}, build {docker file}, We use build because we are building a customer image
     depends_on:
       - postgres
     ports:
