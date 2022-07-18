@@ -300,6 +300,13 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 	Can handle SSL termination
 
 	HTTPS Reuquest  -->  NGINX  --->  HTTP 	-->    GUNICORN(Workers)
+
+
+## Testing (Automated Test)
+	TestClient is a testing module in FastAPI.
+	Create functions with a name starts with test...(This is standard pytest conventions)
+	Use the TestClient object the same way as you do with Requests library.
+	Everything you can do with Requests can be done with TestClient.
 	
 
 ## Answers:
