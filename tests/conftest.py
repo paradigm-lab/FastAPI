@@ -8,6 +8,7 @@ from app.config import settings
 from app.database import get_db, Base
 from alembic import command
 from app.oauth2 import create_access_token
+from app import models
 
 
 # This is a special file that pytest use's and it allows as to define fixtures,
@@ -81,4 +82,46 @@ def authorized_client(client, token):
     }
 
     return client
+
+
+@pytest.fixture(scope="function")
+def test_posts(test_user, session):
+    posts_data = [
+        {
+            "title": "First Title",
+            "content": "First Content",
+            "owner_id": test_user["id"]
+        },
+        {
+            "title": "Second Title",
+            "content": "Second Content",
+            "owner_id": test_user["id"]
+        },
+        {
+            "title": "Third Title",
+            "content": "Third Content",
+            "owner_id": test_user["id"]
+        }
+    ]
+
+    def create_post_model(post):
+        return models.Post(**post)
+
+    post_map = map(create_post_model, posts_data)
+
+    posts = list(post_map)
+
+    session.add_all(posts)
+
+    """
+    session.add_all([
+            models.Post(title="First Title", content="First Content", owner_id=test_user["id"]),
+            models.Post(title="First Title", content="First Content", owner_id=test_user["id"]),
+            models.Post(title="First Title", content="First Content", owner_id=test_user["id"])
+    ])
+    """
+
+    session.commit()
+    posts = session.query(models.Post).all()
+    return posts
 
