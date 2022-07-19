@@ -7,6 +7,7 @@ from app.main import app
 from app import schemas
 from app.config import settings
 from app.database import get_db, Base
+from alembic import command
 
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:fastapi:fastapi@127.0.0.1:5432/fastapi_test"
@@ -23,8 +24,14 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-# Dependency to get a session to the database to send SQL statement
-def override_get_db():
+@pytest.fixture
+def session():
+    # This logic will help in troubleshooting
+    Base.metadata.drop_all(bind=engine)    # This will tell sqlalchemy to all of our tables
+    # We can run our code before we run our test
+    Base.metadata.create_all(bind=engine)  # This will tell sqlalchemy to create all of our tables
+    # command.upgrade("head")       # Using alembic in testing
+    # command.downgrade("base")
     db = TestingSessionLocal()
     try:
         yield db
@@ -32,17 +39,16 @@ def override_get_db():
         db.close()
 
 
-app.dependency_overrides[get_db] = override_get_db
-
-
 @pytest.fixture
-def client():
-    # This logic will help in troubleshooting
-    Base.metadata.drop_all(bind=engine)    # This will tell sqlalchemy to all of our tables
-    # We can run our code before we run our test
-    Base.metadata.create_all(bind=engine)  # This will tell sqlalchemy to create all of our tables
-    yield TestClient(app)   # yield is the same as return
-    # Run our code after our test finish
+def client(session):        # client depends on session
+    # yield TestClient(app)   # yield is the same as return
+    def override_get_db():
+        try:
+            yield session
+        finally:
+            session.close()
+    app.dependency_overrides[get_db] = override_get_db
+    yield TestClient(app)
 
 
 def test_root(client):
