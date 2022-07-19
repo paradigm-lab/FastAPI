@@ -7,6 +7,7 @@ from app.main import app
 from app.config import settings
 from app.database import get_db, Base
 from alembic import command
+from app.oauth2 import create_access_token
 
 
 # This is a special file that pytest use's and it allows as to define fixtures,
@@ -42,6 +43,7 @@ def session():
         db.close()
 
 
+# Gives us unauthenticated client
 @pytest.fixture(scope="function")
 def client(session):        # client depends on session
     # yield TestClient(app)   # yield is the same as return
@@ -64,4 +66,19 @@ def test_user(client):
     # print(res.json)
     return new_user
 
+
+@pytest.fixture(scope="function")
+def token(test_user):
+    return create_access_token({"user_id": test_user["id"]})
+
+
+# This fixture will give us an authenticated client
+@pytest.fixture(scope="function")
+def authorized_client(client, token):
+    client.headers = {
+        **client.headers,
+        "Authorization": f"Bearer {token}"
+    }
+
+    return client
 
