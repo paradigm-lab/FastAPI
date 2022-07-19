@@ -16,3 +16,7 @@ def test_create_user(client):
     assert res.status_code == 201
 
 
+def test_login_user(client):
+    res = client.post("/login", data={"username": "developer@fastapi.com", "password": "developer"})
+    print(res.json())
+    assert res.status_code == 200
