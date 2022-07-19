@@ -23,7 +23,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def session():
     # This logic will help in troubleshooting
     Base.metadata.drop_all(bind=engine)    # This will tell sqlalchemy to all of our tables
@@ -38,7 +38,7 @@ def session():
         db.close()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client(session):        # client depends on session
     # yield TestClient(app)   # yield is the same as return
     def override_get_db():
