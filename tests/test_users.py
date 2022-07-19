@@ -12,7 +12,7 @@ def test_root(client):
 
 def test_create_user(client):
     res = client.post("/users/", json={"email": "developer@fastapi.com", "password": "developer"})
-    new_user = schemas.UserOut(**res.json())    # Unpacking the dictionary
+    new_user = schemas.UserOut(**res.json())  # Unpacking the dictionary
     assert new_user.email == "developer@fastapi.com"
     assert res.status_code == 201
 
@@ -30,3 +30,9 @@ def test_login_user(client, test_user):
     assert user_id == test_user["id"]
     assert login_res.token_type == "bearer"
     assert res.status_code == 200
+
+
+def test_incorrect_login(test_user, client):
+    res = client.post("/login", data={"username": test_user["email"], "password": "Wrong Password"})
+    assert res.status_code == 403
+    assert res.json().get("detail") == "Invalid Credentials"
