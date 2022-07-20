@@ -3,13 +3,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from ..app.config import settings
-from ..app.database import get_db, Base
+from app.config import settings
+from app.database import get_db, Base
 from alembic import command
-from ..app.oauth2 import create_access_token
-from ..app import models
-from ..app.main import app
-# from app.main import app
+from app.oauth2 import create_access_token
+from app import models
+from app.main import app
 
 
 # This is a special file that pytest use's and it allows as to define fixtures,
