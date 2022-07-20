@@ -4,7 +4,18 @@ on: ["push", "pull_request"]
 
 jobs:
   job1:
-    runs-on: ubuntu-latest
+    environment:
+      name: testing
+    env:
+      DATABASE_HOSTNAME: ${{DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{DATABASE_PORT}}
+      DATABASE_PASSWORD: ${{DATABASE_PASSWORD}}
+      DATABASE_NAME: ${{DATABASE_NAME}}
+      DATABASE_USERNAME: ${{DATABASE_USERNAME}}
+      SECRET_KEY: ${{SECRET_KEY}}
+      ALGORITHM: ${{ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ACCESS_TOKEN_EXPIRE_MINUTES}}
+    runs-on: ${{DATABASE_PASSWORD}}
     steps:
       - name: Pulling git repo
         uses: actions/checkout@v3
