@@ -8,7 +8,7 @@ from app.database import get_db, Base
 from alembic import command
 from app.oauth2 import create_access_token
 from app import models
-from app import main
+from app.main import app
 # from app.main import app
 
 
@@ -54,8 +54,8 @@ def client(session):        # client depends on session
             yield session
         finally:
             session.close()
-    main.app.dependency_overrides[get_db] = override_get_db
-    yield TestClient(main.app)
+    app.dependency_overrides[get_db] = override_get_db
+    yield TestClient(app)
 
 
 @pytest.fixture(scope="function")
