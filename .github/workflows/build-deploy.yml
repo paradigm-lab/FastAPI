@@ -8,8 +8,15 @@ jobs:
     steps:
       - name: Pulling git repo
         uses: actions/checkout@v3
-      - name: Say hi to Tiangolo
-        run: echo "Hello FastAPI"
+      - name: Install Python version 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: update pip
+        run: python -m pip install --upgrade pip
+      - name: Installing all dependencies
+        run: pip install -r requirements.txt
+
 
 
 
