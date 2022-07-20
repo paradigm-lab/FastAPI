@@ -8,7 +8,8 @@ from app.database import get_db, Base
 from alembic import command
 from app.oauth2 import create_access_token
 from app import models
-from app.main import app
+from app import main
+# from app.main import app
 
 
 # This is a special file that pytest use's and it allows as to define fixtures,
@@ -53,8 +54,8 @@ def client(session):        # client depends on session
             yield session
         finally:
             session.close()
-    app.dependency_overrides[get_db] = override_get_db
-    yield TestClient(app)
+    main.app.dependency_overrides[get_db] = override_get_db
+    yield TestClient(main.app)
 
 
 @pytest.fixture(scope="function")
