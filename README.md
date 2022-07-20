@@ -312,7 +312,43 @@ Start server: uvicorn main:app (Server, fileName/module Name:FastAPI Instance)
 		--disable-warningsa Disable all the warnings
 		-v verbose
 		-s Output's the print statements
+
+## CI/CD (Continuous Integration and Continuous Delivery)
+	Continuous integration - Automated process to build, package and test applications
+	Continuous Delivery - Picks up where continuous integration ends and automated the delivery of applications
 	
+	## Current Manual process
+		Make changes to code
+		Commit changes 
+		Run Tests (pytest)
+		Build Image
+		Deploy (Multiple steps)
+
+	## Automated CI/CD
+		Make changes to code
+		Commit changes
+			Automated Phase
+				Continuos Integration
+					Pull Source Code
+					Install Dependencies (requirements.txt)
+					Run Automated Tests (PyTest)
+					Build Images (Options) (Docker)
+				
+				Continuos Delivery
+					Grab images/code
+					Update Production
+
+	## CI/CD Tools
+ 		We will be using Github Actions for our CI/CD pipeline
+		It's already integrated with our Github repo and its hosted on Github so there's no need to install anything on our local machine
+		Other tools are: Circleci, Jenkins, Travis CI
+	
+	## What does a CI/CD tool do?
+		They provide a runner - Nothing more than a computer(VM) to run a bunch of commands we specify
+		These commands are either usually configured in a YAML/JSON file or through a GUI environment.
+		The different steps/commands we provide makeup all of the actions our pipeline will perform.
+		The pipeline will be triggered based off of some event (git push/merge)
+		
 
 ## Answers:
 	1. 
