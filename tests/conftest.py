@@ -117,6 +117,11 @@ def test_posts(test_user, session, test_user2):
             "title": "Fourth Title",
             "content": "Fourth Content",
             "owner_id": test_user2["id"]
+        },
+        {
+            "title": "Fifth Title",
+            "content": "Fifth Content",
+            "owner_id": test_user2["id"]
         }
     ]
 
