@@ -1,0 +1,21 @@
+name: Build and Deploy Code
+
+on: ["push", "pull_request"]
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling git repo
+        uses: actions/checkout@v3
+      - name: Say hi to Tiangolo
+        run: echo "Hello FastAPI"
+
+
+
+  # push:
+    # branches:
+      # - "main"
+  # pull_request:
+    # branches:
+      # - "main"
