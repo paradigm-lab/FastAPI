@@ -97,7 +97,7 @@ jobs:   # Jobs work in parallel
           script: |
             cd ~/app/src
             git pull
-            sudo systemctl restart api
+            echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart api
 
 
       # This will rebuild all the time Which will cost us a lot of money and a lot of building time
