@@ -33,5 +33,5 @@ app.include_router(vote.router)
 @app.get("/")  # Decorator: We get the HTTP method and ("") path
 def root():  # Function Will go to consist all the logic for performing the specific task
 
-    return {"message": "Welcome to CI/CD"}  # FastAPI will automatically converter the dictionary to a JSON format
+    return {"message": "Welcome to CI/CD."}  # FastAPI will automatically converter the dictionary to a JSON format
 
