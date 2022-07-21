@@ -92,8 +92,9 @@ jobs:   # Jobs work in parallel
         with:
           host: ${{ secrets.PROD_HOST }}
           username: ${{ secrets.PROD_USERNAME }}
-          password: ${{ secrets.PROD_PASSWORD }}
+          key: ${{secrets.PROD_KEY}}
           port: ${{ secrets.PROD_PORT }}
+          # password: ${{ secrets.PROD_PASSWORD }}
           script: |
             cd ~/app/src
             git pull
