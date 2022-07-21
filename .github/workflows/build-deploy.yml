@@ -79,10 +79,26 @@ jobs:   # Jobs work in parallel
   deploy:
     runs-on: ubuntu-latest
     needs:  [build]
+    environment:
+      name: Production
 
+    # login(SSH) to our ubuntu server
+    # cd app/src
+    # git pull
+    # systemctl  restart api
     steps:
-      - name: Deloying stuff
-        run: echo "Going to deploy some stuff"
+      - name: Deloying to ubuntu server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USERNAME }}
+          password: ${{ secrets.PROD_PASSWORD }}
+          port: ${{ secrets.PROD_PORT }}
+          script: |
+            cd ~/app/src
+            git pull
+            sudo systemctl restart api
+
 
       # This will rebuild all the time Which will cost us a lot of money and a lot of building time
       # - name: Set up Docker Buildx
