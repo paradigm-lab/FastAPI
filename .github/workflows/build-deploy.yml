@@ -2,8 +2,8 @@ name: Build and Deploy Code
 
 on: ["push", "pull_request"]
 
-jobs:
-  job1:
+jobs:   # Jobs work in parallel
+  build:
     environment:
       name: Testing
     env:
@@ -70,11 +70,19 @@ jobs:
           push: true
           # load: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fastapi:latest
+          # Cache all the images
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs:  [build]
+
+    steps:
+      - name: Deloying stuff
+        run: echo "Going to deploy some stuff"
 
       # This will rebuild all the time Which will cost us a lot of money and a lot of building time
       # - name: Set up Docker Buildx
